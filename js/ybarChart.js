@@ -38,16 +38,26 @@ d3.csv("../data.csv", type, function (data) {
 			.attr("y", function (d) {return gHeight - scaleY(d.population);})  // 使原点在左下方开始
 			.attr("height", function (d) {return scaleY(d.population);})
 			.attr("width", barWidth)
-			.style("fill", "steelblue")
+			.style("fill", "#7DBCF6")
+			// 开始过渡
+			.transition()
+			.duration(2000) // 持续2秒
+			.delay(2000) // 延迟
+			.style("fill", "#198EF0")
 
 	barG.append("text")
 			.text(function (d) {return d.year;})
-			.attr("y", function (d) {return gHeight - scaleY(d.population);})  
-			.attr("x", barWidth/2)  
-			.attr("dy", "1em")  
+			.attr("y", function (d) {return gHeight - 13})
+			.attr("x", barWidth/2)
+			.attr("dy", "1em")
 			.attr("text-anchor", "middle")
-			.style("stroke", "purple")
+			.style("stroke", "#eee")
 			.style("font-size", "10px")
+
+			.transition()
+			.attr("y", function (d) {return gHeight -scaleY(d.population);})
+			.duration(2000)
+			.delay(function (d, i) {return 500*i})
 })
 
 // 第二步，处理数据
