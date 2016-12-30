@@ -1,5 +1,5 @@
 ## 我制作的图表效果
-  <img src="images/d3New.gif" width = "350" height = "300" alt="d3" align=center />
+  <img src="images/d3New.gif" width = "450" height = "400" alt="d3" align=center />
 
 ## d3.js
   - 图表的制作引入了d3.js的函数库
