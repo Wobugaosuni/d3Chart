@@ -17,8 +17,7 @@
   注意，由于存在异步的请求，需要使用本地服务器打开
   <br />
   有两种工具推荐：
-  - **http-server**
-  <br />
+  - **http-server** <br />
   [http-server](https://github.com/indexzero/http-server)
   ```bash
   ## 全局安装http-server
@@ -29,8 +28,7 @@
   http-server .
   ```
 
-  - **browserSync**
-  <br />
+  - **browserSync** <br />
   浏览器同步工具：[browserSync](http://www.browsersync.cn/)
   ```bash
   ## 全局安装browserSync
