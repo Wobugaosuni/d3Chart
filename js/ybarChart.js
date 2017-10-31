@@ -19,7 +19,7 @@ d3.csv("../data.csv", type, function (data) {
 								 .attr("class", "bar-svg");
 
 	var barGContainer = barSvg.append("g")
-														.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+											.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
 	var barG = barGContainer.selectAll("g")
 				.data(data)
@@ -39,6 +39,7 @@ d3.csv("../data.csv", type, function (data) {
 			.attr("height", function (d) {return scaleY(d.population);})
 			.attr("width", barWidth)
 			.style("fill", "#7DBCF6")
+
 			// 开始过渡
 			.transition()
 			.duration(2000) // 持续2秒
@@ -54,6 +55,7 @@ d3.csv("../data.csv", type, function (data) {
 			.style("stroke", "#eee")
 			.style("font-size", "10px")
 
+			// 开始过渡
 			.transition()
 			.attr("y", function (d) {return gHeight -scaleY(d.population);})
 			.duration(2000)
