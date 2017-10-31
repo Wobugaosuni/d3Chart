@@ -2,14 +2,17 @@
   <img src="images/d3New.gif" width = "450" height = "400" alt="d3" align=center />
 
 <br />
+
 ## d3.js
   - 图表的制作引入了d3.js的函数库
 
 <br />
+
 ## clone or download代码
   - 点击右上角绿色图标
 
 <br />
+
 ## 在浏览器中打开index.html
   注意，由于存在异步的请求，需要使用本地服务器打开
   <br />
