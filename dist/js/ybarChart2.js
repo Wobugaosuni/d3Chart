@@ -1,5 +1,5 @@
 // 第一步，读取数据
-d3.csv("../d3Chart/data.csv", type, function (data) {
+d3.csv("/d3Chart/data.csv", type, function (data) {
 	// 第三步，使用回调使用数据
 	// var data = [1, 4, 7, 2, 9, 13, 5, 8, 2, 9],
 	var	barHeight = 190,

@@ -1,4 +1,4 @@
-d3.csv("../d3Chart/data2.csv", type, function (data) {
+d3.csv("/d3Chart/data2.csv", type, function (data) {
 	// console.log(data)
 
 	var width = 500,
