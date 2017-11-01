@@ -1,5 +1,5 @@
 // 第一步，读取数据
-d3.csv("../d3Chart/data.csv", type, function (data) {
+d3.csv("/d3Chart/data.csv", type, function (data) {
 	// 第三步，使用回调使用数据
 	//console.log(data)  // [{population: "5.94", "year": "1953"}, {population: "6.95", "year": "1964"}, ...]
 
