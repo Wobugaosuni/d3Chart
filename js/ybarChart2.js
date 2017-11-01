@@ -1,5 +1,5 @@
 // 第一步，读取数据
-d3.csv("../data.csv", type, function (data) {
+d3.csv("../d3Chart/data.csv", type, function (data) {
 	// 第三步，使用回调使用数据
 	// var data = [1, 4, 7, 2, 9, 13, 5, 8, 2, 9],
 	var	barHeight = 190,
@@ -41,16 +41,16 @@ d3.csv("../data.csv", type, function (data) {
 				});
 
 	barG.append("rect")
-			.attr("y", function (d) {return scaleY(d.population);}) 
+			.attr("y", function (d) {return scaleY(d.population);})
 			.attr("height", function (d) {return barHeight - scaleY(d.population);})
 			.attr("width", scaleX.bandwidth())
 			.style("fill", "steelblue")
 
 	barG.append("text")
 			.text(function (d) {return d.population + "亿人";})
-			.attr("y", function (d) {return scaleY(d.population);})  
-			.attr("x", scaleX.bandwidth()/2) 
-			.attr("dy", "1em") 
+			.attr("y", function (d) {return scaleY(d.population);})
+			.attr("x", scaleX.bandwidth()/2)
+			.attr("dy", "1em")
 			.attr("text-anchor", "middle")
 			.style("stroke", "purple")
 			.style("font-size", "10px")
