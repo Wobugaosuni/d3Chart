@@ -1,5 +1,5 @@
 ## 我制作的图表效果
-  <img src="images/d3New.gif" width = "450" height = "400" alt="d3" align=center />
+  https://wobugaosuni.github.io/d3Chart/
 
 <br />
 
