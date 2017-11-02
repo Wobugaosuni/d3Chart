@@ -2,7 +2,7 @@ d3.csv("../data2.csv", type, function (data) {
 	// console.log(data)
 
 	var width = 500,
-			height = 450;
+			height = 350;
 
 	var pieSvg = d3.select("#piechartContainer")
 								 .append("svg")
@@ -10,12 +10,12 @@ d3.csv("../data2.csv", type, function (data) {
 								 .attr("height", height)
 
 	var pieGContainer = pieSvg.append("g")
-														.attr("transform", "translate(250,200)")  // 偏移点为弧的圆心！！！
+														.attr("transform", "translate(250,170)")  // 偏移点为弧的圆心！！！
 
 	// 画弧函数
 	var arcGenerator = d3.arc()
 											 .innerRadius(0)
-											 .outerRadius(150)
+											 .outerRadius(130)
 											 // .startAngle(0)
 											 // .endAngle(120 * Math.PI/180)
 
