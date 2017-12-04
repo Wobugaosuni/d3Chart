@@ -29,7 +29,11 @@ d3.csv("../data.csv", type, function (data) {
 					return "translate(" + (barWidth+barPadding) * i + ", 0)";
 				});
 
-	// 定义Y轴的缩放函数——线性缩放
+	/*
+	 * 定义Y轴的缩放函数——线性缩放
+	 * domain: 定义数据data的范围([最小值, 最大值])，输入的
+	 * range: y轴相应的范围，输出的
+	 */
 	var scaleY = d3.scaleLinear()
 								.domain([0, d3.max(data, function (data) {return data.population})])
 								.range([0, gHeight])
@@ -38,13 +42,13 @@ d3.csv("../data.csv", type, function (data) {
 			.attr("y", function (d) {return gHeight - scaleY(d.population);})  // 使原点在左下方开始
 			.attr("height", function (d) {return scaleY(d.population);})
 			.attr("width", barWidth)
-			.style("fill", "#7DBCF6")
+			.style("fill", "#7DBCF6") // 初始颜色
 
 			// 开始过渡
 			.transition()
 			.duration(2000) // 持续2秒
 			.delay(2000) // 延迟
-			.style("fill", "#198EF0")
+			.style("fill", "#198EF0") // 终止颜色
 
 	barG.append("text")
 			.text(function (d) {return d.year;})

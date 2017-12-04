@@ -1,18 +1,56 @@
+// api文档参考：https://github.com/d3/d3/blob/master/API.md
+
+```js
+  // 相关api
+  // 比例尺
+  - d3.scaleSqrt().domain([0, 100000]).range([0.2, 34])：平方根比例尺
+  - d3.scaleLinear()：线性比例尺
+  - d3.scaleOrdinal(d3.schemeCategory20b)：序数颜色比例尺，输入域和输出域都使用离散的数据，20种颜色
+
+  // 数据处理
+  - d3.descending()：降序函数
+```
+
+/**
+ * 1. 初始化配置
+ */
 var width = 960,
   height = 500,
   margin = { top: 40, bottom: 40, left: 140, right: 140 },
+  /* `domain()`是输入域，`range()`是输出域，相当于将`domain`中的数据集映射到`range`的数据集中 */
   scalepop = d3.scaleSqrt().domain([0, 100000]).range([0.2, 34]),
+  /**
+   * 定义一个序数颜色比例尺
+   */
+  /* d3.scaleOrdinal() 序数比例尺，输入域和输出域都使用离散的数据 */
+  /* d3.schemeCategory20b 20种颜色 */
   scalecountry = d3.scaleOrdinal(d3.schemeCategory20b),
   centerx = d3.scaleLinear()
     .range([margin.left, width - margin.right]),
   centery = d3.scaleLinear()
     .range([margin.top, height - margin.bottom]);
 
+/**
+ * ds.csv() 读取csv数据文件，并把数据转换为数组
+ * @param csv数据文件路径
+ * @param 回调函数，参数是csv文件数据转换后的数组
+ */
 d3.csv('../cities.csv', function (cities) {
 
+/**
+ * 2. 对返回的原始数据进行整理
+ */
   const data = cities
-    .sort((a, b) => d3.descending(+a[2015], +b[2015]))
+    .sort((a, b) => {
+/**
+ * d3.descending() 降序函数
+ * @param a 比较值1
+ * @param b 比较值2
+ */
+      return d3.descending(+a[2015], +b[2015])
+    })
     .map((d, i) => {
+      // console.log('d:', d);
       return {
         lon: +d.Longitude,
         lat: +d.Latitude,
@@ -28,13 +66,19 @@ d3.csv('../cities.csv', function (cities) {
       .attr("width", width)
       .attr("height", height);
   */
+  /**
+   * 3. 选择图表容器，插入svg元素
+   */
   const svg = d3.select("#thumbnail").append("svg")
     .attr("width", width)
     .attr("height", height);
 
+  /**
+   * 4. 创建力模拟
+   */
 
   // pos is the array of positions that will be updated by the tsne worker
-  // start with the geographic coordinates as is (plate-carrée)
+  // start with the geographic coordinates(坐标) as is (plate-carrée)
   // random or [0,0] is fine too
   let pos = data.map(d => [d.lon, -d.lat]);
 
@@ -105,9 +149,9 @@ d3.csv('../cities.csv', function (cities) {
 
 
   d3.queue()
-    .defer(d3.text, 'tsne.js')
+    .defer(d3.text, '../util/tsne.js')
     .defer(d3.text, 'https://unpkg.com/d3-geo')
-    .defer(d3.text, 'worker.js')
+    .defer(d3.text, '../util/worker.js')
     .awaitAll(function (err, scripts) {
 
       const worker = new Worker(
@@ -137,3 +181,7 @@ d3.csv('../cities.csv', function (cities) {
     });
 
 });
+
+
+// 文档参考
+// http://sevenchan07.com/d3-common-scale/
