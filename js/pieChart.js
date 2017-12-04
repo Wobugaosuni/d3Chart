@@ -1,3 +1,10 @@
+/*
+	相关接口
+	- .pie()，布局(数据转换)，将数据转换成画饼图所需要的数据(起始角度，终止角度)
+	- .arc()，弧生成器
+	- .centroid()，计算弧线的中心
+*/
+
 d3.csv("../data2.csv", type, function (data) {
 	// console.log(data)
 
@@ -53,13 +60,16 @@ d3.csv("../data2.csv", type, function (data) {
 
 	// 给扇形添加文字，通过扇形的中心位置进行定位
 	var pieText = pieGContainer.selectAll("text")
-														 .data(angleData(data))
-														 .enter()
-														 .append("text")
-														 .text(function (angleData) {return angleData.data.education})  // 因为绑定了angleData的数据
-														 .attr("transform", function (angleData) {return "translate(" + arcGenerator.centroid(angleData) + ")";})  // 根据中心点的位置进行偏移
-														 .attr("text-anchor", "middle")  // 让文字中心对齐
-														 .attr("font-size", "12px")
+								.data(angleData(data))
+								.enter()
+								.append("text")
+								.text(function (angleData) {return angleData.data.education})  // 因为绑定了angleData的数据
+								.attr("transform", function (angleData) {
+								//  console.log('arcGenerator.centroid(angleData):', arcGenerator.centroid(angleData))
+									return "translate(" + arcGenerator.centroid(angleData) + ")";
+								})  // 根据中心点的位置进行偏移
+								.attr("text-anchor", "middle")  // 让文字中心对齐
+								.attr("font-size", "12px")
 })
 
 function type(data) {

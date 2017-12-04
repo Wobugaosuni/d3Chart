@@ -1,6 +1,6 @@
 // api文档参考：https://github.com/d3/d3/blob/master/API.md
 
-```js
+/*
   // 相关api
   // 比例尺
   - d3.scaleSqrt().domain([0, 100000]).range([0.2, 34])：平方根比例尺
@@ -9,7 +9,8 @@
 
   // 数据处理
   - d3.descending()：降序函数
-```
+  - .force()：布局(数据转换)，将数据转换为力图需要的数据
+*/
 
 /**
  * 1. 初始化配置

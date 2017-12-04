@@ -1,3 +1,8 @@
+/*
+ 相关接口
+ - on()，添加事件监听器
+*/
+
 var data = [1, 4, 7, 2, 9, 13, 5, 8, 2, 9],
 		margin = {top: 20, right: 30, bottom: 15, left: 30}
 		barHeight = 20,
@@ -29,7 +34,17 @@ var scaleX = d3.scaleLinear()
 barG.append("rect")
 		.attr("width", function (d) {return scaleX(d);})
 		.attr("height", barHeight)
-		.style("fill", "#8DB9BE")
+		.attr("fill", "#8DB9BE")
+		.on("mouseover", (d, i) => {
+			d3.select(d3.event.target)
+				.transition()
+				.attr("fill", "purple")
+		})
+		.on('mouseout', (d, i) => {
+			d3.select(d3.event.target)
+				.transition()
+				.attr("fill", "#8DB9BE")
+		})
 
 barG.append("text")
 		.text(function (d) {return d;})
