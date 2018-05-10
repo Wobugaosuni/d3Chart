@@ -1,7 +1,7 @@
 // in worker.onmessage add : `if (e.data.log) console.log.apply(this, e.data.log);`
-console.log = function() {
-  self.postMessage({ log: [...arguments] });
-}
+// console.log = function() {
+//   self.postMessage({ log: [...arguments] });
+// }
 
   function levenshtein(a, b) {
   var t = [], u, i, j, m = a.length, n = b.length;
@@ -32,7 +32,7 @@ self.onmessage = function(e) {
         b => levenshtein(a.name.substring(0,2).toLowerCase(), b.name.substring(0,2).toLowerCase())
       )
     );
-    console.log('computed', data.length * data.length,'distances in', Math.round(performance.now()-now),'ms');
+    // console.log('computed', data.length * data.length,'distances in', Math.round(performance.now()-now),'ms');
   }
   if (dists) {
       model = new tsnejs.tSNE({

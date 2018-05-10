@@ -171,7 +171,9 @@ d3.csv('../cities.csv', function (cities) {
       });
 
       worker.onmessage = function (e) {
-        if (e.data.log) console.log.apply(this, e.data.log);
+        if (e.data.log) {
+          // console.log.apply(this, e.data.log);
+        }
         if (e.data.pos) pos = e.data.pos;
         if (e.data.done && e.data.done < 10000 && e.data.cost > 1e-2) {
           worker.postMessage({

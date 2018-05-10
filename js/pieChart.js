@@ -1,7 +1,7 @@
 /*
 	相关接口
-	- .pie()，布局(数据转换)，将数据转换成画饼图所需要的数据(起始角度，终止角度)
-	- .arc()，弧生成器
+	- .arc()，弧生成器，d3.shape模块下的。https://github.com/d3/d3-shape#arcs
+	- .pie()，布局(数据转换)，d3.layout模块下的。将数据转换成画饼图所需要的数据(起始角度，终止角度)
 	- .centroid()，计算弧线的中心
 */
 
@@ -19,12 +19,28 @@ d3.csv("../data2.csv", type, function (data) {
 	var pieGContainer = pieSvg.append("g")
 														.attr("transform", "translate(250,170)")  // 偏移点为弧的圆心！！！
 
-	// 画弧函数
+	/*
+	 * .arc(): 画弧函数。
+	 * 根据传入的参数值（innerRadius、outerRadius、startAngle、endAngle），创建一个生成器（generator）
+	 * 生成并返回 path 元素中 d 属性绘制圆形所需要的值
+	 * 这个值包含圆的起始、终止角度（顺时针方向），内外圆半径（用于决定是画圆还是画圆环）
+	 */
+	// 实现方法一，使用 d3.arc 内置的函数 使用 链式的方法依次设定这些属性值
 	var arcGenerator = d3.arc()
 											 .innerRadius(0)
 											 .outerRadius(130)
-											 // .startAngle(0)
-											 // .endAngle(120 * Math.PI/180)
+											//  .startAngle(0)
+											//  .endAngle(120 * Math.PI/180)
+
+	// 实现方法二，直接传入若干属性值
+	// var arcGenerator = d3.arc({
+	// 	innerRadius: 0,
+	// 	outerRadius: 130,
+	// })
+
+	console.log('range1:', d3.range(0, 1, 1 / 49))
+	console.log('range2:', d3.range(49).map(item => item / 49))
+	// d3.range(49).map(function(d) { return d / 49; })
 
 	// 计算起始和结束角度
 	var angleData = d3.pie()

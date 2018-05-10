@@ -305,7 +305,7 @@ var tsnejs = tsnejs || { REVISION: 'ALPHA' };
 
           var analytic = grad[i][d];
           var numerical = (cg0.cost - cg1.cost) / ( 2 * e );
-          console.log(i + ',' + d + ': gradcheck analytic: ' + analytic + ' vs. numerical: ' + numerical);
+          // console.log(i + ',' + d + ': gradcheck analytic: ' + analytic + ' vs. numerical: ' + numerical);
 
           this.Y[i][d] = yold;
         }
