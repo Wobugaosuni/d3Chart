@@ -8,7 +8,7 @@ var pieSvg = d3.select("#piechartContainer2")
   .attr('height', height)
 
 var pieGContainer = pieSvg.append('g')
-  .attr('transform', 'translate(250, 170)')
+  .attr('transform', 'translate(250, 300)')
 
 // var quarterArc = d3.arc()
 //   .innerRadius(80)
@@ -25,16 +25,16 @@ var pieGContainer = pieSvg.append('g')
  */
 
 
-const bowsData = d3.range(10)  // 10个数据
+var bowsData = d3.range(10)  // 10个数据
 
 // 圆柱图比例尺
 // 将半个圆平分成10块
-const radialScaleBand = d3.scaleBand()
+var radialScaleBand = d3.scaleBand()
   .domain(d3.range(10))
   .range([-0.5 * Math.PI, 0.5 * Math.PI])
 
 // 圆弧生成器方法一 起始角度算好的
-const arcGenerator = d3.arc()
+var arcGenerator = d3.arc()
   .startAngle(d => radialScaleBand(d))
   .endAngle(d => radialScaleBand(d) + radialScaleBand.bandwidth())
   .padAngle(0.01)  // 圆弧之间的间距
@@ -42,8 +42,8 @@ const arcGenerator = d3.arc()
   .outerRadius(130)
 
 // 圆弧生成器方法二 起始角度固定的，偏移计算在g元素上
-const arcGenerator2 = d3.arc()
-  .startAngle(Math.PI / -20)
+var arcGenerator2 = d3.arc()
+  .startAngle(Math.PI / -20)  // 整个圆下来平分了 10 * 2 份
   .endAngle(Math.PI / 20)
   .padAngle(0.01)  // 圆弧之间的间距
   .innerRadius(100)
@@ -67,7 +67,7 @@ pieGContainer.selectAll('g')
   .data(bowsData)
   .enter()
   .append('g')  // 有10个g元素
-  .attr('transform', d => 'rotate(' + (radialScaleBand(d) + radialScaleBand.bandwidth() / 2) * （180 / Math.PI） + ')')
+  .attr('transform', d => 'rotate(' + (radialScaleBand(d) + radialScaleBand.bandwidth() / 2) * (180 / Math.PI) + ')')
   .append('path')
   .attr('d', arcGenerator2)
   .style('fill', 'pink')
