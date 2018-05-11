@@ -38,8 +38,8 @@ d3.csv("../data2.csv", type, function (data) {
 	// 	outerRadius: 130,
 	// })
 
-	console.log('range1:', d3.range(0, 1, 1 / 49))
-	console.log('range2:', d3.range(49).map(item => item / 49))
+	// console.log('range1:', d3.range(0, 1, 1 / 49))
+	// console.log('range2:', d3.range(49).map(item => item / 49))
 	// d3.range(49).map(function(d) { return d / 49; })
 
 	// 计算起始和结束角度
