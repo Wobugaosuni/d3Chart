@@ -19,7 +19,7 @@ var bowsData = d3.range(10)
   .map((rangeItem, rangeIndex) => {
     var data = d3.range(15).map((item, index) => {
       return {
-        value: item,
+        value: Math.random() * 10,
         base: rangeIndex,
         index: index,
       }
@@ -44,7 +44,12 @@ var arcGenerator = d3.arc()
   .startAngle(d => radialScaleBand(d.base))
   .endAngle(d => radialScaleBand(d.base) + radialScaleBand.bandwidth())
   .padAngle(0.01)  // 圆弧之间的间距
-  .innerRadius((item, index) => 13 * index + 3)
+  // .innerRadius((item, index) => 13 * index + 3)
+  .innerRadius((item, index) => {
+    var innerNumber = 13 * index + 3 + (13 - item.value * 13 / 10)
+    // console.log('innerNumber:', innerNumber)
+    return innerNumber
+  })
   .outerRadius((item, index) => 13 * index + 13)
 
 // console.log('arcGenerator2:', arcGenerator)
