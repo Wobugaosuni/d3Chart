@@ -41,6 +41,8 @@ var arcGenerator = d3.arc()
   .innerRadius(100)
   .outerRadius(130)
 
+// console.log('arcGenerator:', arcGenerator)
+
 // 圆弧生成器方法二 起始角度固定的，偏移计算在g元素上
 var arcGenerator2 = d3.arc()
   .startAngle(Math.PI / -20)  // 整个圆下来平分了 10 * 2 份
