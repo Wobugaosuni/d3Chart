@@ -62,7 +62,7 @@ var arcGenerator2 = d3.arc()
 //   .append('g')
 //   .append('path')
 //   .attr('d', arcGenerator)
-//   .style('fill', 'pink')
+//   .style('fill', '#D89A85')
 
 // 方法二
 pieGContainer.selectAll('g')
@@ -72,5 +72,5 @@ pieGContainer.selectAll('g')
   .attr('transform', d => 'rotate(' + (radialScaleBand(d) + radialScaleBand.bandwidth() / 2) * (180 / Math.PI) + ')')
   .append('path')
   .attr('d', arcGenerator2)
-  .style('fill', 'pink')
+  .style('fill', '#D89A85')
 
