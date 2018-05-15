@@ -61,11 +61,11 @@ d3.csv("../data2.csv", type, function (data) {
 														 .attr("d", arcGenerator)
 														 .style("fill", function (d, i) {return color[i];})  // 取前五种颜色，为每个扇形添加颜色
 														 .on('mouseover', (d, i) => {
-															d3.select(d3.event.target)
-																.transition()
-																.duration(1000)
-																.ease(d3.easeCubicOut)
-																.attr('transform', d => `translate(${arcGenerator.centroid(d)})`)
+																d3.select(d3.event.target)
+																	.transition()
+																	.duration(1000)
+																	.ease(d3.easeCubicOut)
+																	.attr('transform', d => `translate(${arcGenerator.centroid(d)})`)
 														 })
 														 .on('mouseout', (d, i) => {
 															d3.select(d3.event.target)

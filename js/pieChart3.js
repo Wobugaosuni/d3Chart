@@ -62,11 +62,11 @@ var arcGenerator = d3.arc()
   // .innerRadius((item, index) => 13 * index + 3)
   // 数据mock
   .innerRadius((item, index) => {
-    var innerNumber = 13 * index + 3 + (13 - item.value * 13 / 10)
+    var innerNumber = 13 * index + 30 + (13 - item.value * 13 / 10)
     // console.log('innerNumber:', innerNumber)
     return innerNumber
   })
-  .outerRadius((item, index) => 13 * index + 13)
+  .outerRadius((item, index) => 13 * index + 40)
 
 // console.log('arcGenerator2:', arcGenerator)
 
