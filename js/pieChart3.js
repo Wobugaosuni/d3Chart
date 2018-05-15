@@ -14,6 +14,20 @@ var pieSvg = d3.select("#piechartContainer3")
 var pieGContainer = pieSvg.append('g')
   .attr('transform', 'translate(250, 300)')
 
+
+// 定义渐变色
+var defsContainer = pieGContainer.append('defs')
+  .append('linearGradient')
+  .attr('id', 'defsLinearGradient')
+
+defsContainer.append('stop')
+  .attr('offset', '5%')
+  .attr('stop-color', '#f00')
+defsContainer.append('stop')
+  .attr('offset', '95%')
+  .attr('stop-color', '#ff0')
+
+
 // 二维数据
 var bowsData = d3.range(10)
   .map((rangeItem, rangeIndex) => {
@@ -56,19 +70,6 @@ var arcGenerator = d3.arc()
 
 // console.log('arcGenerator2:', arcGenerator)
 
-// 颜色升级
-const a = d3.rgb(159, 249, 223)
-const b = d3.rgb(85, 229, 208)
-const c = d3.rgb(0, 169, 180)
-const d = d3.rgb(0, 81, 165)
-const e = d3.rgb(95, 31, 167)
-
-const color = d3.interpolateRgbBasis([a, b, c, d, e])
-
-const linear = d3.scaleLinear()
-  .domain(d3.range(25))
-  .range([0, 1])
-
 var bowContainers = pieGContainer.selectAll('g')
   .data(bowsData)
   .enter()
@@ -79,4 +80,4 @@ bowContainers.selectAll('path')
   .enter()
   .append('path')
   .attr('d', arcGenerator)
-  .style('fill', item => color(linear(item.index)))
+  .style('fill', 'url(#defsLinearGradient)')
