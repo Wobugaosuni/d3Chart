@@ -8,22 +8,29 @@ var config = {
   ],
   series: [
     {
-      name: '宏华监测',
-      value: 57,
+      name: '磨合期',
+      value: 27.3,
     },
     {
-      name: '宏华待监测',
-      value: 11,
+      name: '准业主1',
+      value: 25.55,
     },
     {
-      name: '其他厂商',
-      value: 32,
+      name: '准业主2',
+      value: 19.2,
+    },
+    {
+      name: '老业主',
+      value: 15.45,
+    },
+    {
+      name: '稳定期',
+      value: 12.5,
     },
   ]
 }
 
 // 处理数据，数据降序处理
-
 config.series = config.series.sort((a, b) => b.value - a.value)
 
 var width = 500
@@ -40,12 +47,9 @@ var pieGContainer = pieSvg.append('g')
 
 var innerRadius = 20
 
-var middleRadius = 60
-
 var scaleBandPie = d3.scaleBand()
   .domain(config.series.map(item => item.value))
   .range([110, 90])
-
 var scaleBandDash = d3.scaleBand()
   .domain(d3.range(50))
   .range([0, Math.PI * 2])
@@ -56,18 +60,29 @@ var pieArcGenerator = d3.arc()
   .innerRadius(innerRadius)
   .outerRadius(item => {
     var number = scaleBandPie(item.data.value)
-    console.log('number:', number);
+    // console.log('number:', number);
     return number
   })
   .startAngle(item => item.startAngle)
   .endAngle(item => item.endAngle)
-
 var dashArcGenerator = d3.arc()
   .innerRadius(60 - 0.5)
   .outerRadius(60 + 0.5)
   .startAngle(item => scaleBandDash(item))
   .endAngle(item => scaleBandDash(item) + scaleBandDash.bandwidth())
   .padAngle(0.02)
+
+
+var middleArc = d3.arc()
+  .innerRadius(60)
+  .outerRadius(60)
+var outerArc = d3.arc()
+  .innerRadius((item => {
+    return scaleBandPie(item.data.value)
+  }))
+  .outerRadius((item => {
+    return scaleBandPie(item.data.value)
+  }))
 
 var angleData = d3.pie()
   // .value(item => item.value)
@@ -85,6 +100,22 @@ bowContainers.append('path')
   .attr('d', pieArcGenerator)
   .attr('fill', (item, index) => config.colors[index])
 
+/**
+ * polyline
+ */
+bowContainers.append('polyline')
+  .attr('points', item => {
+    var points = [
+      middleArc.centroid(item),
+      outerArc.centroid(item)
+    ]
+    // console.log('item:', item);
+    console.log('points:', points);
+
+    return points
+  })
+  .attr('stroke', '#fff')
+  .attr('stroke-dasharray', '5,1')
 
 /**
  * 虚线部分，相当于一维多柱图的制作方法
@@ -96,3 +127,14 @@ bowContainers.append('g')
   .append('path')
   .attr('d', dashArcGenerator)
   .attr('fill', '#fff')
+
+// bowContainers.append('path')
+//   .attr('d', d3.arc()
+//     .innerRadius(60 - 0.5)
+//     .outerRadius(60 + 0.5)
+//     .startAngle(0)
+//     .endAngle(2 * Math.PI)
+//   )
+//   .attr('fill', 'none')
+//   .attr('stroke', '#fff')
+//   .attr('stroke-dasharray', '5,1')
