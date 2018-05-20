@@ -15,17 +15,19 @@ var pieGContainer = pieSvg.append('g')
   .attr('transform', 'translate(250, 300)')
 
 
-// 定义渐变色
+/*
+ * 定义渐变色
+ */
 var defsContainer = pieGContainer.append('defs')
   .append('linearGradient')
   .attr('id', 'defsLinearGradient')
 
 defsContainer.append('stop')
   .attr('offset', '5%')
-  .attr('stop-color', '#f00')
+  .attr('stop-color', '#004CAA')
 defsContainer.append('stop')
   .attr('offset', '95%')
-  .attr('stop-color', '#ff0')
+  .attr('stop-color', '#00ABB8')
 
 
 // 二维数据
@@ -60,7 +62,7 @@ var arcGenerator = d3.arc()
   .padAngle(0.01)
   // 统一大小
   // .innerRadius((item, index) => 13 * index + 3)
-  // 数据mock
+  // 数据mock，随机
   .innerRadius((item, index) => {
     var innerNumber = 13 * index + 30 + (13 - item.value * 13 / 10)
     // console.log('innerNumber:', innerNumber)

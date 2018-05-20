@@ -6,18 +6,28 @@
 */
 
 d3.csv("../data2.csv", type, function (data) {
-	// console.log(data)
+	// [{
+	// 	"education":"大专及以上", "population":11964
+	// },{
+	// 	"education":"高中及中专", "population":18799
+	// },{
+	// 	"education":"初中", "population":51966
+	// },{
+	// 	"education":"小学", "population":35876
+	// },{
+	// 	"education":"文盲人口", "population":5466
+	// }]
 
 	var width = 500,
-			height = 350;
+		height = 350;
 
 	var pieSvg = d3.select("#piechartContainer")
-								 .append("svg")
-								 .attr("width", width)
-								 .attr("height", height)
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height)
 
 	var pieGContainer = pieSvg.append("g")
-														.attr("transform", "translate(250,170)")  // 偏移点为弧的圆心！！！
+		.attr("transform", "translate(250,170)") // 偏移点为弧的圆心！！！
 
 	/*
 	 * .arc(): 画弧函数。
@@ -27,10 +37,10 @@ d3.csv("../data2.csv", type, function (data) {
 	 */
 	// 实现方法一，使用 d3.arc 内置的函数 使用 链式的方法依次设定这些属性值
 	var arcGenerator = d3.arc()
-											 .innerRadius(0)
-											 .outerRadius(130)
-											//  .startAngle(0)
-											//  .endAngle(120 * Math.PI/180)
+		.innerRadius(0)
+		.outerRadius(130)
+	//  .startAngle(0)
+	//  .endAngle(120 * Math.PI/180)
 
 	// 实现方法二，直接传入若干属性值
 	// var arcGenerator = d3.arc({
@@ -44,8 +54,33 @@ d3.csv("../data2.csv", type, function (data) {
 
 	// 计算起始和结束角度
 	var angleData = d3.pie()
-										.value(function (data) {return data.population;})
-	// console.log(angleData(data))	// [{data: {}, endAngle: ..., index: 3, padAngle: 0, startAngle: ..., value: 11964}, {...}, ...]
+		.value(function (item) {
+			return item.population;
+		})
+	// console.log(JSON.stringify(angleData(data)))
+	// [{
+	// 	"data": {
+	// 		"education": "大专及以上",
+	// 		"population": 11964
+	// 	},
+	// 	"index": 3,
+	// 	"value": 11964,
+	// 	"startAngle": 5.400497814500877,
+	// 	"endAngle": 6.006376940284474,
+	// 	"padAngle": 0
+	// }, {
+	// 	"data": {
+	// 		"education": "高中及中专",
+	// 		"population": 18799
+	// 	},
+	// 	"index": 2,
+	// 	"value": 18799,
+	// 	"startAngle": 4.448481625466622,
+	// 	"endAngle": 5.400497814500877,
+	// 	"padAngle": 0
+	// }, {
+	// 	......
+	// }]
 
 	// 使用d3定义好的颜色函数，给扇形填充颜色
 	// var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -55,37 +90,41 @@ d3.csv("../data2.csv", type, function (data) {
 	// console.log(color)
 
 	var piePath = pieGContainer.selectAll("path")
-														 .data(angleData(data))
-														 .enter()
-														 .append("path")
-														 .attr("d", arcGenerator)
-														 .style("fill", function (d, i) {return color[i];})  // 取前五种颜色，为每个扇形添加颜色
-														 .on('mouseover', (d, i) => {
-																d3.select(d3.event.target)
-																	.transition()
-																	.duration(1000)
-																	.ease(d3.easeCubicOut)
-																	.attr('transform', d => `translate(${arcGenerator.centroid(d)})`)
-														 })
-														 .on('mouseout', (d, i) => {
-															d3.select(d3.event.target)
-																.transition()
-																.duration(500)
-																.attr('transform', d => `translate(${[0,0]})`)
-														 })
+		.data(angleData(data))
+		.enter()
+		.append("path")
+		.attr("d", arcGenerator)
+		.style("fill", function (d, i) {
+			return color[i];
+		}) // 取前五种颜色，为每个扇形添加颜色
+		.on('mouseover', (d, i) => {
+			d3.select(d3.event.target)
+				.transition()
+				.duration(1000)
+				.ease(d3.easeCubicOut)
+				.attr('transform', d => `translate(${arcGenerator.centroid(d)})`)
+		})
+		.on('mouseout', (d, i) => {
+			d3.select(d3.event.target)
+				.transition()
+				.duration(500)
+				.attr('transform', d => `translate(${[0,0]})`)
+		})
 
 	// 给扇形添加文字，通过扇形的中心位置进行定位
 	var pieText = pieGContainer.selectAll("text")
-								.data(angleData(data))
-								.enter()
-								.append("text")
-								.text(function (angleData) {return angleData.data.education})  // 因为绑定了angleData的数据
-								.attr("transform", function (angleData) {
-								//  console.log('arcGenerator.centroid(angleData):', arcGenerator.centroid(angleData))
-									return "translate(" + arcGenerator.centroid(angleData) + ")";
-								})  // 根据中心点的位置进行偏移
-								.attr("text-anchor", "middle")  // 让文字中心对齐
-								.attr("font-size", "12px")
+		.data(angleData(data))
+		.enter()
+		.append("text")
+		.text(function (angleData) {
+			return angleData.data.education
+		}) // 因为绑定了angleData的数据
+		.attr("transform", function (angleData) {
+			//  console.log('arcGenerator.centroid(angleData):', arcGenerator.centroid(angleData))
+			return "translate(" + arcGenerator.centroid(angleData) + ")";
+		}) // 根据中心点的位置进行偏移
+		.attr("text-anchor", "middle") // 让文字中心对齐
+		.attr("font-size", "12px")
 })
 
 function type(data) {
