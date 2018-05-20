@@ -42,34 +42,57 @@ var innerRadius = 20
 
 var middleRadius = 60
 
-var scaleBand = d3.scaleBand()
+var scaleBandPie = d3.scaleBand()
   .domain(config.series.map(item => item.value))
   .range([110, 90])
 
+var scaleBandDash = d3.scaleBand()
+  .domain(d3.range(50))
+  .range([0, Math.PI * 2])
+
 // console.log(config.series.map(item => item.value).sort((a, b) => a - b));
 
-var arcGenerator = d3.arc()
+var pieArcGenerator = d3.arc()
   .innerRadius(innerRadius)
   .outerRadius(item => {
-    var number = scaleBand(item.data.value)
+    var number = scaleBandPie(item.data.value)
     console.log('number:', number);
     return number
   })
   .startAngle(item => item.startAngle)
   .endAngle(item => item.endAngle)
 
+var dashArcGenerator = d3.arc()
+  .innerRadius(60 - 0.5)
+  .outerRadius(60 + 0.5)
+  .startAngle(item => scaleBandDash(item))
+  .endAngle(item => scaleBandDash(item) + scaleBandDash.bandwidth())
+  .padAngle(0.02)
+
 var angleData = d3.pie()
   // .value(item => item.value)
   .value(item => 1)  // 均分
-
-// console.log('angleData:', JSON.stringify(angleData(config.series)))
-
 
 var bowContainers = pieGContainer.selectAll('g')
   .data(angleData(config.series))
   .enter()
   .append('g')
 
+/**
+ * pie图
+ */
 bowContainers.append('path')
-  .attr('d', arcGenerator)
+  .attr('d', pieArcGenerator)
   .attr('fill', (item, index) => config.colors[index])
+
+
+/**
+ * 虚线部分，相当于一维多柱图的制作方法
+ */
+bowContainers.append('g')
+  .selectAll('path')
+  .data(d3.range(50))
+  .enter()
+  .append('path')
+  .attr('d', dashArcGenerator)
+  .attr('fill', '#fff')
