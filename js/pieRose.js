@@ -145,7 +145,7 @@ bowContainers.append('polyline')
     return points
   })
   .attr('fill', 'none')
-  .attr('stroke', '#fff')
+  .attr('stroke', '#ccc')
   .attr('stroke-dasharray', '5,1')
 
 /**
@@ -157,7 +157,7 @@ bowContainers.append('g')
   .enter()
   .append('path')
   .attr('d', dashArcGenerator)
-  .attr('fill', '#fff')
+  .attr('fill', '#ccc')
 
 // bowContainers.append('path')
 //   .attr('d', d3.arc()
@@ -183,7 +183,7 @@ bowContainers.append('text')
 
     return `translate(${thirdPoint})`
   })
-  .attr('fill', '#fff')
+  .attr('fill', '#a6a6a6')
   .attr('font-size', '13px')
   .attr('text-anchor', item => {
     var thirdPoint = outerArc.centroid(item)
@@ -192,7 +192,7 @@ bowContainers.append('text')
 
 // 第二行
 bowContainers.append('text')
-  .text(item => '30%')
+  .text(item => item.data.value)
   .attr('transform', item => {
     var thirdPoint = outerArc.centroid(item)
     // x固定
@@ -201,7 +201,7 @@ bowContainers.append('text')
 
     return `translate(${thirdPoint})`
   })
-  .attr('fill', '#fff')
+  .attr('fill', '#a6a6a6')
   .attr('font-size', '12px')
   .attr('text-anchor', item => {
     var thirdPoint = outerArc.centroid(item)
