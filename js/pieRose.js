@@ -108,7 +108,7 @@ var pieSvg = d3.select('#piechartContainer4')
   .attr('height', height)
 
 var pieGContainer = pieSvg.append('g')
-  .attr('transform', 'translate(' +  width / 2 + ',' + height / 2 + ')')
+  .attr('transform', `translate(${width / 2}, ${height / 2})`)
 
 var bowContainers = pieGContainer.selectAll('g')
   .data(angleData(config.series))
@@ -169,3 +169,41 @@ bowContainers.append('g')
 //   .attr('fill', 'none')
 //   .attr('stroke', '#fff')
 //   .attr('stroke-dasharray', '5,1')
+
+/**
+ * 文字部分
+ */
+// 第一行
+bowContainers.append('text')
+  .text(item => item.data.name)
+  .attr('transform', item => {
+    var thirdPoint = outerArc.centroid(item)
+    // x固定
+    thirdPoint[0] = thirdPoint[0] > 0 ? maxRadius * 1.25 : - maxRadius * 1.25
+
+    return `translate(${thirdPoint})`
+  })
+  .attr('fill', '#fff')
+  .attr('font-size', '13px')
+  .attr('text-anchor', item => {
+    var thirdPoint = outerArc.centroid(item)
+    return thirdPoint[0] > 0 ? 'start' : 'end'
+  })
+
+// 第二行
+bowContainers.append('text')
+  .text(item => '30%')
+  .attr('transform', item => {
+    var thirdPoint = outerArc.centroid(item)
+    // x固定
+    thirdPoint[0] = thirdPoint[0] > 0 ? maxRadius * 1.25 : - maxRadius * 1.25
+    thirdPoint[1] = thirdPoint[1] + 14
+
+    return `translate(${thirdPoint})`
+  })
+  .attr('fill', '#fff')
+  .attr('font-size', '12px')
+  .attr('text-anchor', item => {
+    var thirdPoint = outerArc.centroid(item)
+    return thirdPoint[0] > 0 ? 'start' : 'end'
+  })
